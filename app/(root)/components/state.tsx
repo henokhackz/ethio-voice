@@ -8,12 +8,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import React, { useEffect, useState } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { updateFeedback } from "@/lib/actions/admin.actions";
+import { getFeedbackById } from "@/lib/actions/feedback.actions";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { getFeedbackById } from "@/lib/actions/feedback.actions";
+import { useEffect, useState } from "react";
 
 const State = ({ feedbackId }: { feedbackId: string }) => {
   const { toast } = useToast();
@@ -22,13 +22,15 @@ const State = ({ feedbackId }: { feedbackId: string }) => {
   const { userId } = useAuth();
   const router = useRouter();
 
-  const [currentState, setCurrentState] = useState<any | null>(null); // You can replace `any` with `Feedback` if it's defined
+  const [currentState, setCurrentState] = useState<string | null>(null); // You can replace `any` with `Feedback` if it's defined
 
   useEffect(() => {
     const fetchFeedback = async () => {
       try {
-        const fetchedFeedback = await getFeedbackById(feedbackId);
-        setCurrentState(fetchedFeedback.feedback?.state);
+        const { feedback } = await getFeedbackById(feedbackId);
+        if (feedback?.state) {
+          setCurrentState(feedback?.state);
+        }
       } catch (error) {
         console.error(error);
         toast({
