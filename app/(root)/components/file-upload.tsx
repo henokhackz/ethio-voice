@@ -11,6 +11,8 @@ const FileUpload = ({
     <CldUploadWidget
       signatureEndpoint="/api/sign-cloudinary-params"
       onSuccess={(result) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-expect-error
         setPreviewUrl(result?.info?.secure_url);
       }}
       onQueuesEnd={(result, { widget }) => {
