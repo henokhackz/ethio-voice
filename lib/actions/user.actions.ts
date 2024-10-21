@@ -24,12 +24,14 @@ export async function getUserById(userId: string) {
       where: { clerkId: userId },
     });
 
-    if (!user) throw new Error("User not found");
+    if (!user) {
+      return { state: "error", message: "User not found" };
+    }
 
-    return user;
+    return { state: "success", user };
   } catch (error) {
     console.error("Error fetching user:", error);
-    throw new Error("Failed to fetch user");
+    return { state: "error", message: "error fetching user " };
   }
 }
 
@@ -71,5 +73,24 @@ export async function deleteUser(clerkId: string) {
   } catch (error) {
     console.error("Error deleting user:", error);
     throw new Error("Failed to delete user");
+  }
+}
+
+export async function checkUserAdminOrNot(userId: string) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: { clerkId: userId },
+    });
+    if (!user) {
+      return { state: "error", message: "User not found" };
+    }
+    if (user.role === "admin") {
+      return true;
+    }
+
+    return false;
+  } catch (error) {
+    console.log(error);
+    throw new Error("Error while getting user information");
   }
 }

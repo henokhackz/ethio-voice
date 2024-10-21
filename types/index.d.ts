@@ -16,3 +16,21 @@ declare type UpdateUserParams = {
   username: string;
   photo: string;
 };
+
+declare type Feedback = {
+  id: number;
+  name: string;
+  phoneNumber: string;
+  feedback: string;
+  category: string;
+  state: string;
+};
+
+declare type Notification = {
+  id: string;
+  userId: string;
+  message: string;
+  type: string;
+  isRead: boolean;
+  createdAt: Date;
+};
