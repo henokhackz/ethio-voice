@@ -6,11 +6,10 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import {
-  getAllAdminNotificationsByUserId,
   getNofitications,
   getNotificationsByUserId,
   updateNotificationStatus,
-} from "@/lib/actions/notification.actions"; // Add function to fetch all unread notifications for admin
+} from "@/lib/actions/notification.actions";
 import { checkUserAdminOrNot } from "@/lib/actions/user.actions";
 import {
   ClerkLoaded,
@@ -39,11 +38,6 @@ interface Notification {
   createdAt: Date;
 }
 
-interface AdminNotificationProps {
-  notifications: [];
-  unReadNotificationsCount: number;
-}
-
 type UnreadNotifications = Notification[] | undefined;
 
 const Navbar = () => {
@@ -54,13 +48,6 @@ const Navbar = () => {
   >([]);
   const [loading, setLoading] = useState(true);
   const [unreadCount, setUnreadCount] = useState<number | undefined>(0);
-  const [adminNotifications, setAdminNotifications] = useState<
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    any | AdminNotificationProps
-  >({
-    notifications: [],
-    unReadNotificationsCount: 0,
-  });
   const [isAdmin, setIsAdmin] = useState<
     boolean | { state: string; message: string }
   >(false);
@@ -76,29 +63,13 @@ const Navbar = () => {
           let unreadNotifications;
 
           if (isAdmin) {
-            // Fetch all unread notifications for admin
             const { notifications } = await getNofitications();
             unreadNotifications = notifications?.filter(
               (notification) => notification.isRead === false
             );
             setNotifications(unreadNotifications);
           } else {
-            // Fetch unread notifications for a regular user
             const { notifications } = await getNotificationsByUserId(userId);
-            const { adminNotifications } =
-              await getAllAdminNotificationsByUserId(userId);
-
-            if (adminNotifications) {
-              const unreadAdminNotificationsCount = notifications?.filter(
-                (notification) => !notification.isRead
-              ).length;
-
-              setAdminNotifications({
-                notifications: adminNotifications,
-                unReadNotificationsCount: unreadAdminNotificationsCount,
-              });
-            }
-
             setNotifications(notifications || []);
             const unreadNotificationsCount = notifications?.filter(
               (notification) => !notification.isRead
@@ -138,7 +109,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full flex items-center justify-between h-[80px] bg-white px-5 top-0 left-0 sticky z-50 border-b border-gray-200 shadow-sm">
-      {/* Logo or App Name */}
+      {/* App Name */}
       <div className="text-2xl font-bold text-primary">Ethio-Voice</div>
 
       {/* Search Bar */}
@@ -151,7 +122,6 @@ const Navbar = () => {
           />
         </form>
       </SignedIn>
-
       <div className="flex items-center space-x-4">
         <SignedIn>
           <Popover>
@@ -163,13 +133,6 @@ const Navbar = () => {
                 onClick={handleNotificationClick}
               >
                 <Bell className="w-6 h-6" />
-                {/* Display admin notifications count */}
-                {adminNotifications.unReadNotificationsCount > 0 && (
-                  <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-                    {adminNotifications.unReadNotificationsCount}
-                  </span>
-                )}
-                {/* Display user notifications count */}
                 {unreadCount !== undefined && unreadCount > 0 && (
                   <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
                     {unreadCount}
@@ -177,7 +140,7 @@ const Navbar = () => {
                 )}
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-full p-4 mt-2 shadow-lg border border-gray-200 bg-white rounded-lg max-h-screen overflow-y-scroll max-w-screen-lg">
+            <PopoverContent className="w-full p-4 mt-2 shadow-lg border border-gray-200 bg-white rounded-lg">
               <h3 className="text-lg font-semibold mb-3">Notifications</h3>
               {loading ? (
                 <div className="text-gray-600 text-sm">
