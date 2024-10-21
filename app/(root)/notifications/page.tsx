@@ -25,9 +25,7 @@ interface NotificationProps {
   isRead: boolean;
 }
 
-type CardProps = React.ComponentProps<typeof Card>;
-
-function FeedbackNotifications({ className, ...props }: CardProps) {
+function FeedbackNotifications() {
   const { userId } = useAuth();
   const [notifications, setNotifications] = useState<NotificationProps[]>([]);
   const [loading, setLoading] = useState(true);
@@ -69,10 +67,8 @@ function FeedbackNotifications({ className, ...props }: CardProps) {
     <div className="flex items-center justify-center w-full h-screen p-5 py-12 bg-gray-50 ">
       <Card
         className={cn(
-          "w-[500px] h-full bg-white max-h-screen overflow-y-scroll shadow-lg ",
-          className
+          "w-[500px] h-full bg-white max-h-screen overflow-y-scroll shadow-lg "
         )}
-        {...props}
       >
         <CardHeader>
           <CardTitle>Notifications</CardTitle>
