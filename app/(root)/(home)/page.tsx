@@ -31,14 +31,30 @@ const Dashboard = async () => {
     feedbacks = result.feedbacks;
   }
 
-  const feedbackCount = feedbacks?.length || 0;
+  let count = {
+    feedbackCount: 0,
+    inProgressCount: 0,
+    resolvedCount: 0,
+  };
 
-  const inProgressCount = feedbacks?.filter(
-    (feedback) => feedback.state === "in progress"
-  ).length;
-  const resolvedCount = feedbacks?.filter(
-    (feedback) => feedback.state === "resolved"
-  ).length;
+  if (feedbacks) {
+    const feedbackCount = feedbacks?.length || 0;
+
+    const inProgressCount = feedbacks?.filter(
+      (feedback) => feedback.state === "in progress"
+    ).length;
+    const resolvedCount = feedbacks?.filter(
+      (feedback) => feedback.state === "resolved"
+    ).length;
+
+    count = {
+      feedbackCount,
+      inProgressCount,
+      resolvedCount,
+    };
+  }
+
+  const { feedbackCount, inProgressCount, resolvedCount } = count;
 
   return (
     <div className="w-full h-screen flex flex-col md:flex-row ">
