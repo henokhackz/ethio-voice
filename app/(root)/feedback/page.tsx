@@ -113,7 +113,7 @@ const Feedback = () => {
 
   return (
     <div className="flex justify-center items-center w-full h-screen bg-gray-50 p-6 shadow-lg py-12">
-      <div className="w-[400px] sm:w-[500px] md:w-[800px] p-6 rounded-lg bg-white mx-auto flex flex-col items-center border border-gray-200 h-full overflow-y-scroll">
+      <div className="w-[400px] sm:w-[500px] md:w-[800px] p-6 rounded-lg bg-white mx-auto flex flex-col items-center border border-gray-200  ">
         <h3 className="text-2xl font-semibold text-gray-800 mb-6">
           Submit New Feedback
         </h3>

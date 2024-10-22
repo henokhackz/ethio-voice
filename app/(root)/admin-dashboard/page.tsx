@@ -25,7 +25,7 @@ const AdminDashboard = async () => {
     feedbacks?.filter((feedback) => feedback.state === "Pending").length || 0;
 
   return (
-    <div className="flex h-screen bg-gray-100 w-full p-5 max-h-screen overflow-y-scroll">
+    <div className="h-screen bg-gray-100 w-full p-5 max-h-screen overflow-y-scroll hidden md:flex">
       {/* Main Content */}
       <main className=" overflow-y-scroll  w-full py-12">
         {/* Welcome Section */}

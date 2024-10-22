@@ -13,12 +13,12 @@ export default function SettingsPage() {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <div className="w-full mx-auto  space-y-10 ">
+    <div className="w-full mx-auto  space-y-10 bg-gray-50">
       <div className="max-w-5xl mx-auto space-y-5 py-12">
         {/* Profile & Notification Settings */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Profile Settings */}
-          <Card className="">
+          <Card className="bg-white">
             <CardHeader>
               <CardTitle className="text-2xl font-semibold">
                 Profile Settings
@@ -52,7 +52,7 @@ export default function SettingsPage() {
           </Card>
 
           {/* Notification Settings */}
-          <Card className=" ">
+          <Card className=" bg-white">
             <CardHeader>
               <CardTitle className="text-2xl font-semibold">
                 Notification Settings
@@ -93,7 +93,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Account Preferences */}
-        <Card className="">
+        <Card className="bg-white">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold">
               Account Preferences

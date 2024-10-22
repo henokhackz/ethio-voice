@@ -39,7 +39,6 @@ const Dashboard = async () => {
 
   if (feedbacks) {
     const feedbackCount = feedbacks?.length || 0;
-
     const inProgressCount = feedbacks?.filter(
       (feedback) => feedback.state === "in progress"
     ).length;
@@ -57,11 +56,11 @@ const Dashboard = async () => {
   const { feedbackCount, inProgressCount, resolvedCount } = count;
 
   return (
-    <div className="w-full h-screen flex flex-col md:flex-row ">
+    <div className="w-full min-h-screen flex flex-col items-center p-4">
       <SignedIn>
-        <div className="flex flex-col p-6 w-full bg-gray-50">
+        <div className="flex flex-col p-6 w-full max-w-6xl bg-gray-50 rounded-lg shadow-lg">
           {/* Welcome Section */}
-          <div className="mb-10">
+          <div className="mb-10 text-center md:text-left">
             <h1 className="text-3xl font-semibold text-gray-900">
               Welcome back,{" "}
               <span className="text-primary">{user.firstName}</span>
@@ -72,7 +71,7 @@ const Dashboard = async () => {
           </div>
 
           {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full mb-10">
             <div className="bg-white p-6 rounded-lg text-center shadow-sm">
               <h2 className="text-xl font-semibold text-gray-900">
                 Total Feedbacks
@@ -92,44 +91,47 @@ const Dashboard = async () => {
           </div>
 
           {/* Feedback Table Section */}
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto w-full">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">
               Previous Feedbacks
             </h2>
-            <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md max-h-screen overflow-y-scroll ">
+            <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-md">
               <thead className="bg-gray-100">
                 <tr>
-                  <th className="py-3 px-5 text-left font-medium text-gray-700">
+                  <th className="py-3 px-3 text-left font-medium text-gray-700">
                     Feedback
                   </th>
-                  <th className="py-3 px-5 text-left font-medium text-gray-700">
+                  <th className="py-3 px-3 text-left font-medium text-gray-700">
                     State
                   </th>
-                  <th className="py-3 px-5 text-left font-medium text-gray-700">
+                  <th className="py-3 px-3 text-left font-medium text-gray-700">
                     Category
                   </th>
-                  <th className="py-3 px-5 text-left font-medium text-gray-700">
+                  <th className="py-3 px-3 text-left font-medium text-gray-700">
                     Edit
                   </th>
                 </tr>
               </thead>
               <tbody>
                 {!feedbacks ||
-                  (feedbacks.length == 0 && (
+                  (feedbacks.length === 0 && (
                     <tr>
-                      <td className="py-4 px-5 text-gray-800 text-center">
+                      <td
+                        className="py-4 px-5 text-gray-800 text-center"
+                        colSpan={4}
+                      >
                         No feedbacks found.
                       </td>
                     </tr>
                   ))}
                 {feedbacks?.map((feedback, index) => (
                   <tr key={index} className="border-t border-gray-200">
-                    <td className="py-4 px-5 text-gray-800">
+                    <td className="py-4 px-3 text-gray-800 max-w-[150px] truncate">
                       {truncateText(feedback.feedback, 50)}
                     </td>
-                    <td className="py-4 px-5">
+                    <td className="py-4 px-3">
                       <span
-                        className={`px-3 py-1 rounded-full text-sm font-medium ${
+                        className={`px-3 py-1 rounded-full text-xs md:text-sm font-medium ${
                           feedback.state === "resolved"
                             ? "bg-green-100 text-green-700"
                             : feedback.state === "in progress"
@@ -140,10 +142,10 @@ const Dashboard = async () => {
                         {feedback.state}
                       </span>
                     </td>
-                    <td className="py-4 px-5 text-gray-800">
+                    <td className="py-4 px-3 text-gray-800">
                       {feedback.category}
                     </td>
-                    <td className="py-4 px-5">
+                    <td className="py-4 px-3">
                       <Link
                         href={`feedbacks/${feedback.id}`}
                         className="text-primary hover:underline"
@@ -160,9 +162,9 @@ const Dashboard = async () => {
           {/* Feedback Actions */}
           <Link
             href={"/feedback"}
-            className="flex justify-start gap-6 mb-10 my-6"
+            className="flex justify-center md:justify-start gap-6 mb-10 my-6"
           >
-            <Button className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all">
+            <Button className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all w-full md:w-1/2">
               Add New Feedback
             </Button>
           </Link>

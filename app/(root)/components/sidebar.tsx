@@ -20,7 +20,7 @@ export default function Sidebar() {
 
   return (
     <SignedIn>
-      <aside className="w-64 h-screen bg-white text-gray-800 flex flex-col justify-between border-r border-gray-200 shadow-lg">
+      <aside className="w-64 h-screen bg-white text-gray-800 hidden md:flex flex-col justify-between border-r border-gray-200 shadow-lg">
         {/* Logo Section */}
         <div className="flex items-center justify-center py-8 bg-gray-100 shadow-sm">
           <Image

@@ -22,6 +22,8 @@ import {
 } from "@clerk/nextjs";
 import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
+import MobileNavbar from "./mobile-navbar";
+import SearchBar from "./search-bar";
 
 interface NotificationProps {
   message: string;
@@ -110,17 +112,16 @@ const Navbar = () => {
   return (
     <nav className="w-full flex items-center justify-between h-[80px] bg-white px-5 top-0 left-0 sticky z-50 border-b border-gray-200 shadow-sm">
       {/* App Name */}
-      <div className="text-2xl font-bold text-primary">Ethio-Voice</div>
+      <div className="flex items-center space-x-4 md:hidden">
+        <MobileNavbar />
+      </div>
+      <div className="text-2xl font-bold text-primary hidden md:block">
+        Ethio-Voice
+      </div>
 
       {/* Search Bar */}
       <SignedIn>
-        <form className="hidden md:flex w-full max-w-md mx-5">
-          <input
-            type="text"
-            className="w-full p-2 pl-10 text-gray-800 bg-gray-100 rounded-full focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all"
-            placeholder="Search feedbacks, categories..."
-          />
-        </form>
+        <SearchBar />
       </SignedIn>
       <div className="flex items-center space-x-4">
         <SignedIn>
