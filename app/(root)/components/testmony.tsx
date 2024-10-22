@@ -50,12 +50,6 @@ export function Testmony() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark">
-          Prev
-        </CarouselPrevious>
-        <CarouselNext className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-primary-dark">
-          Next
-        </CarouselNext>
       </Carousel>
     </div>
   );

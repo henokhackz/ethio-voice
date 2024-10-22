@@ -6,9 +6,9 @@ import { Testmony } from "./testmony";
 
 const LandingPage = () => {
   return (
-    <div className="flex flex-col gap-2 items-center justify-center w-full">
+    <div className="flex flex-col gap-2 items-center justify-center w-full min-h-screen">
       <ClerkLoading>
-        <div className="text-primary">loading...</div>
+        <div className="text-primary ">loading...</div>
       </ClerkLoading>
       <ClerkLoaded>
         <SignedOut>
