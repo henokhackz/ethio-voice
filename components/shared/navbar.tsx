@@ -24,6 +24,7 @@ import { Bell } from "lucide-react";
 import { useEffect, useState } from "react";
 import MobileNavbar from "./mobile-navbar";
 import SearchBar from "./search-bar";
+import Link from "next/link";
 
 interface NotificationProps {
   message: string;
@@ -115,9 +116,11 @@ const Navbar = () => {
       <div className="flex items-center space-x-4 md:hidden">
         <MobileNavbar />
       </div>
-      <div className="text-2xl font-bold text-primary hidden md:block">
-        Ethio-Voice
-      </div>
+      <Link href={"#"}>
+        <div className="text-2xl font-bold text-primary hidden md:block">
+          Ethio-Voice
+        </div>
+      </Link>
 
       {/* Search Bar */}
       <SignedIn>
