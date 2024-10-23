@@ -20,7 +20,7 @@ export default function Sidebar() {
 
   return (
     <SignedIn>
-      <aside className="w-64 h-screen bg-white text-gray-800 hidden md:flex flex-col justify-between border-r border-gray-200 shadow-lg">
+      <aside className="w-64 h-screen bg-white text-gray-800 hidden md:flex flex-col justify-between border-r border-gray-200 shadow-lg fixed left-0 bottom-0 top-20 max-h-screen overflow-y-scroll pb-20">
         {/* Logo Section */}
         <div className="flex items-center justify-center py-8 bg-gray-100 shadow-sm">
           <Image
@@ -49,6 +49,14 @@ export default function Sidebar() {
                 className="flex items-center gap-4 py-3 px-4 rounded-lg text-md font-medium text-gray-700 hover:bg-primary hover:text-white transition-all duration-200"
               >
                 <Bell size={20} /> Notifications
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/video-chat"
+                className="flex items-center gap-4 py-3 px-4 rounded-lg text-md font-medium text-gray-700 hover:bg-primary hover:text-white transition-all duration-200"
+              >
+                <Bell size={20} /> Video chat
               </Link>
             </li>
             <li>

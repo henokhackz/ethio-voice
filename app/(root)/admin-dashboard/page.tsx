@@ -25,9 +25,9 @@ const AdminDashboard = async () => {
     feedbacks?.filter((feedback) => feedback.state === "Pending").length || 0;
 
   return (
-    <div className="h-screen bg-gray-100 w-full p-5 max-h-screen overflow-y-scroll hidden md:flex">
+    <div className=" bg-gray-50 w-full p-5 hidden md:flex">
       {/* Main Content */}
-      <main className=" overflow-y-scroll  w-full py-12">
+      <main className="  w-full py-12">
         {/* Welcome Section */}
         <div className="mb-10">
           <h1 className="text-3xl font-semibold text-gray-900">

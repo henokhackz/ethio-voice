@@ -1,98 +1,106 @@
-import { PencilIcon, TrashIcon, EyeIcon } from "lucide-react";
+"use client";
+import { Pen, Trash } from "lucide-react";
+import React, { useState } from "react";
 
-const ManageUsers = () => {
-  const users = [
-    {
-      name: "John Doe",
-      email: "john@example.com",
-      role: "Admin",
-      status: "Active",
-      lastLogin: "2024-10-15",
-    },
-    {
-      name: "Jane Smith",
-      email: "jane@example.com",
-      role: "User",
-      status: "Suspended",
-      lastLogin: "2024-10-12",
-    },
-    // Add more user objects here
-  ];
+// Sample user data
+const usersData = [
+  { id: 1, name: "John Doe", email: "john@example.com", role: "Admin" },
+  { id: 2, name: "Jane Smith", email: "jane@example.com", role: "User" },
+  {
+    id: 3,
+    name: "Alice Johnson",
+    email: "alice@example.com",
+    role: "Moderator",
+  },
+  { id: 4, name: "Bob Brown", email: "bob@example.com", role: "User" },
+];
+
+const Users = () => {
+  const [users, setUsers] = useState(usersData);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Handle search input
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Handle user deletion
+  const handleDelete = (id: number) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
+
+  // Handle user editing (placeholder function)
+  const handleEdit = (id: number) => {
+    alert(`Edit user with id: ${id}`);
+  };
+
+  // Filter users based on search term
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
-    <div className="p-5 py-12 w-full">
-      {/* Header Section */}
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Manage Users</h1>
-        <div className="flex space-x-4">
-          <input
-            type="text"
-            placeholder="Search users..."
-            className="border rounded-lg p-2 shadow-sm focus:ring bg-transparent"
-          />
-          <button className="bg-primary text-white px-4 py-2 rounded-lg shadow ">
-            Add New User
-          </button>
-        </div>
+    <div className="w-full p-6 bg-gray-100 min-h-screen">
+      <h2 className="text-2xl font-bold mb-6 text-start">Manage Users</h2>
+
+      {/* Search bar */}
+      <div className="mb-4 w-full flex justify-start">
+        <input
+          type="text"
+          placeholder="Search users by name or email"
+          value={searchTerm}
+          onChange={handleSearch}
+          className="w-full md:w-1/2 p-2 border border-gray-300 rounded-lg"
+        />
       </div>
 
-      {/* User Table */}
-      <table className="w-full table-auto bg-white shadow-md rounded-lg border border-gray-800/10">
-        <thead>
-          <tr className="bg-gray-100">
-            <th className="p-3 text-left">Name</th>
-            <th className="p-3 text-left">Email</th>
-            <th className="p-3 text-left">Role</th>
-            <th className="p-3 text-left">Status</th>
-            <th className="p-3 text-left">Last Login</th>
-            <th className="p-3 text-center">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user, index) => (
-            <tr key={index} className="border-b hover:bg-gray-50">
-              <td className="p-3">{user.name}</td>
-              <td className="p-3">{user.email}</td>
-              <td className="p-3">{user.role}</td>
-              <td className="p-3">
-                <span
-                  className={`px-2 py-1 rounded-full text-sm ${
-                    user.status === "Active"
-                      ? "bg-green-100 text-green-600"
-                      : "bg-red-100 text-red-600"
-                  }`}
-                >
-                  {user.status}
-                </span>
-              </td>
-              <td className="p-3">{user.lastLogin}</td>
-              <td className="p-3 text-center space-x-2">
-                <button className="text-primary ">
-                  <EyeIcon className="inline-block w-5 h-5" />
-                </button>
-                <button className="tex-primary ">
-                  <PencilIcon className="inline-block w-5 h-5" />
-                </button>
-                <button className="text-red-600 hover:text-red-500">
-                  <TrashIcon className="inline-block w-5 h-5" />
-                </button>
-              </td>
+      {/* Users table */}
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white shadow-md rounded-md">
+          <thead>
+            <tr>
+              <th className="py-3 px-6 text-left">Name</th>
+              <th className="py-3 px-6 text-left">Email</th>
+              <th className="py-3 px-6 text-left">Role</th>
+              <th className="py-3 px-6 text-center">Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredUsers.length > 0 ? (
+              filteredUsers.map((user) => (
+                <tr key={user.id} className="border-t">
+                  <td className="py-3 px-6">{user.name}</td>
+                  <td className="py-3 px-6">{user.email}</td>
+                  <td className="py-3 px-6">{user.role}</td>
+                  <td className="py-3 px-6 text-center flex justify-between gap-2">
+                    <Pen
+                      size={20}
+                      onClick={() => handleEdit(user.id)}
+                      className="cursor-pointer text-pretty text-primary"
+                    />
 
-      {/* Pagination */}
-      <div className="flex justify-end mt-4">
-        <button className="px-4 py-2 text-gray-600 hover:bg-gray-100">
-          Previous
-        </button>
-        <button className="px-4 py-2 text-gray-600 hover:bg-gray-100">
-          Next
-        </button>
+                    <Trash
+                      size={20}
+                      onClick={() => handleDelete(user.id)}
+                      className="cursor-pointer text-red-300"
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="py-3 px-6 text-center">
+                  No users found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
     </div>
   );
 };
 
-export default ManageUsers;
+export default Users;

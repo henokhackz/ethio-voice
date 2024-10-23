@@ -1,11 +1,11 @@
-import { Footer } from "@/components/shared/Footer";
 import Navbar from "@/components/shared/navbar";
 import { Toaster } from "@/components/ui/toaster";
-import React from "react";
-import Sidebar from "./components/sidebar";
-import { auth } from "@clerk/nextjs/server";
 import { getUserById } from "@/lib/actions/user.actions";
+import { auth } from "@clerk/nextjs/server";
+import React from "react";
 import AdminSidebar from "./components/admin-sidebar";
+import Sidebar from "./components/sidebar";
+
 const layout = async ({ children }: { children: React.ReactNode }) => {
   const { userId } = await auth();
 
@@ -21,11 +21,15 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
     <div className="flex w-full flex-col justify-between items-center min-h-screen">
       <Navbar />
       <div className="flex items-start justify-between w-full">
-        {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />}
-        {children}
+        {user && (
+          <div className="w-64">
+            {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />}
+          </div>
+        )}
+        <div className="flex-grow">{children}</div>
+
         <Toaster />
       </div>
-      <Footer />
     </div>
   );
 };

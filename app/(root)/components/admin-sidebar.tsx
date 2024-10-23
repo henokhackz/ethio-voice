@@ -5,7 +5,7 @@ import { Book, Home, MessageSquare, Users } from "lucide-react";
 
 const AdminSidebar = () => {
   return (
-    <aside className="w-64 h-screen bg-white text-gray-800 flex flex-col justify-between border-r border-gray-200 shadow-md* pb-12">
+    <aside className="w-64 h-screen bg-white text-gray-800 flex flex-col justify-between border-r border-gray-200 shadow-md pb-12 fixed top-20 bottom-0 left-0 ">
       {/* Logo Section */}
       <div className="flex items-center justify-center py-8 bg-gray-100 shadow-sm">
         <Image

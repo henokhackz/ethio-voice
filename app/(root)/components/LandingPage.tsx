@@ -3,6 +3,7 @@ import React from "react";
 import Hero from "./hero";
 import STATISTICS from "./statistics";
 import { Testmony } from "./testmony";
+import { Footer } from "@/components/shared/Footer";
 
 const LandingPage = () => {
   return (
@@ -15,6 +16,7 @@ const LandingPage = () => {
           <Hero />
           <STATISTICS />
           <Testmony />
+          <Footer />
         </SignedOut>
       </ClerkLoaded>
     </div>

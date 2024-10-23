@@ -56,12 +56,12 @@ const Dashboard = async () => {
   const { feedbackCount, inProgressCount, resolvedCount } = count;
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center p-4">
+    <div className="w-full min-h-screen flex flex-col items-center p-4  ">
       <SignedIn>
         <div className="flex flex-col p-6 w-full max-w-6xl bg-gray-50 rounded-lg shadow-lg">
           {/* Welcome Section */}
           <div className="mb-10 text-center md:text-left">
-            <h1 className="text-3xl font-semibold text-gray-900">
+            <h1 className="text-2xl font-semibold text-gray-800">
               Welcome back,{" "}
               <span className="text-primary">{user.firstName}</span>
             </h1>
@@ -73,7 +73,7 @@ const Dashboard = async () => {
           {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full mb-10">
             <div className="bg-white p-6 rounded-lg text-center shadow-sm">
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-xl font-semibold text-gray-800">
                 Total Feedbacks
               </h2>
               <p className="text-2xl text-primary mt-2">{feedbackCount}</p>
@@ -91,7 +91,7 @@ const Dashboard = async () => {
           </div>
 
           {/* Feedback Table Section */}
-          <div className="overflow-x-auto w-full">
+          <div className="overflow-x-auto w-full ">
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">
               Previous Feedbacks
             </h2>

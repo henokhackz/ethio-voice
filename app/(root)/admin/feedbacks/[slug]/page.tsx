@@ -31,7 +31,7 @@ const FeedbackStatusViewer = async ({
   }
 
   return (
-    <div className="h-screen w-full p-5 flex flex-col space-y-6 bg-gray-50 py-12 max-h-screen overflow-y-scroll">
+    <div className="h-screen w-full p-5 flex flex-col space-y-6 bg-gray-50 py-12">
       {/* Title */}
       <h1 className="text-4xl font-bold text-gray-900">Feedback Details</h1>
 
