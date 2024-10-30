@@ -93,6 +93,12 @@ const AdminDashboard = async () => {
               </tr>
             </thead>
             <tbody>
+              {!feedbacks && (
+                <div>
+                  well come to admin dashboard there is no user feedbacks to
+                  show
+                </div>
+              )}
               {feedbacks?.map((feedback, index) => (
                 <tr key={index} className="border-t border-gray-200">
                   <td className="py-4 px-5 text-gray-800">{feedback.name}</td>

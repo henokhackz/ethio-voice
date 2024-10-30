@@ -8,6 +8,7 @@ import LandingPage from "../components/LandingPage";
 import { SignedIn } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { truncateText } from "@/lib/helpers";
+import Chart from "@/components/shared/Chart";
 
 const Dashboard = async () => {
   const { userId } = await auth();
@@ -34,6 +35,7 @@ const Dashboard = async () => {
   let count = {
     feedbackCount: 0,
     inProgressCount: 0,
+    pendingCount: 0,
     resolvedCount: 0,
   };
 
@@ -42,6 +44,9 @@ const Dashboard = async () => {
     const inProgressCount = feedbacks?.filter(
       (feedback) => feedback.state === "in progress"
     ).length;
+    const pendingCount = feedbacks?.filter(
+      (feedback) => feedback.state === "pending"
+    ).length;
     const resolvedCount = feedbacks?.filter(
       (feedback) => feedback.state === "resolved"
     ).length;
@@ -49,45 +54,58 @@ const Dashboard = async () => {
     count = {
       feedbackCount,
       inProgressCount,
+      pendingCount,
       resolvedCount,
     };
   }
 
-  const { feedbackCount, inProgressCount, resolvedCount } = count;
+  const { feedbackCount, inProgressCount, resolvedCount, pendingCount } = count;
 
   return (
     <div className="w-full min-h-screen flex flex-col items-center p-4  ">
       <SignedIn>
-        <div className="flex flex-col p-6 w-full max-w-6xl bg-gray-50 rounded-lg shadow-lg">
+        <div className="flex flex-col p-6 w-full max-w-6xl bg-gray-50 rounded-lg ">
           {/* Welcome Section */}
           <div className="mb-10 text-center md:text-left">
             <h1 className="text-2xl font-semibold text-gray-800">
               Welcome back,{" "}
               <span className="text-primary">{user.firstName}</span>
             </h1>
-            <p className="text-md text-gray-700 mt-2">
+            <p className="text-md text-gray-800 mt-2">
               Good to see you again! Here&apos;s what&apos;s new:
             </p>
           </div>
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full mb-10">
-            <div className="bg-white p-6 rounded-lg text-center shadow-sm">
+            <div className="bg-white p-6 rounded-lg text-center shadow-sm border border-gray-800/10">
               <h2 className="text-xl font-semibold text-gray-800">
                 Total Feedbacks
               </h2>
               <p className="text-2xl text-primary mt-2">{feedbackCount}</p>
             </div>
-            <div className="bg-white p-6 rounded-lg text-center shadow-sm">
+            <div className="bg-white p-6 rounded-lg text-center shadow-sm  border border-gray-800/10">
               <h2 className="text-xl font-semibold text-gray-900">
                 In Progress
               </h2>
               <p className="text-2xl text-yellow-500 mt-2">{inProgressCount}</p>
             </div>
-            <div className="bg-white p-6 rounded-lg text-center shadow-sm">
+            <div className="bg-white p-6 rounded-lg text-center shadow-sm  border border-gray-800/10">
               <h2 className="text-xl font-semibold text-gray-900">Resolved</h2>
               <p className="text-2xl text-green-500 mt-2">{resolvedCount}</p>
             </div>
+          </div>
+          {/* Chart Section */}
+          <div className="bg-white p-6 rounded-lg shadow-sm mb-10">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              Feedback Trends
+            </h2>
+            <Chart
+              feedbackCount={feedbackCount}
+              inProgressCount={inProgressCount}
+              resolvedCount={resolvedCount}
+              pendingCount={pendingCount}
+            />
           </div>
 
           {/* Feedback Table Section */}
@@ -127,7 +145,7 @@ const Dashboard = async () => {
                 {feedbacks?.map((feedback, index) => (
                   <tr key={index} className="border-t border-gray-200">
                     <td className="py-4 px-3 text-gray-800 max-w-[150px] truncate">
-                      {truncateText(feedback.feedback, 50)}
+                      {truncateText(feedback.title, 50)}
                     </td>
                     <td className="py-4 px-3">
                       <span
@@ -164,9 +182,7 @@ const Dashboard = async () => {
             href={"/feedback"}
             className="flex justify-center md:justify-start gap-6 mb-10 my-6"
           >
-            <Button className="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-all w-full md:w-1/2">
-              Add New Feedback
-            </Button>
+            <Button variant={"primary"}>Add New Feedback</Button>
           </Link>
         </div>
       </SignedIn>

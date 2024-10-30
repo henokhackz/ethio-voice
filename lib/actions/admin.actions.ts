@@ -73,6 +73,7 @@ export async function deleteuserFeedback(feedbackId: string, userId: string) {
       },
     });
     revalidatePath("/");
+
     return { state: "success", deletedFeedback };
   } catch (error) {
     console.log(error);

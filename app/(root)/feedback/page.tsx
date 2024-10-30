@@ -18,13 +18,16 @@ import Image from "next/image";
 import { useState } from "react";
 import FileUpload from "../components/file-upload";
 import { useRouter } from "next/navigation";
+import { Switch } from "@/components/ui/switch";
 
 interface Feedback {
   id: number;
   name: string;
   phoneNumber: string;
+  title: string;
   feedback: string;
   category: string;
+  isPublic: boolean;
   state: string;
 }
 
@@ -34,7 +37,9 @@ const Feedback = () => {
   const [newFeedback, setNewFeedback] = useState({
     name: "",
     phoneNumber: "",
+    title: "",
     feedback: "",
+    isPublic: true,
     category: "",
     state: "Pending",
   });
@@ -45,7 +50,7 @@ const Feedback = () => {
 
   if (!isLoaded)
     return (
-      <div className="h-screen items-center justify-center">
+      <div className="h-screen items-center justify-center w-full">
         <h3>loading</h3>
       </div>
     );
@@ -63,7 +68,9 @@ const Feedback = () => {
       id: feedbacks.length + 1,
       name: newFeedback.name,
       phoneNumber: newFeedback.phoneNumber,
+      title: newFeedback.title,
       feedback: newFeedback.feedback,
+      isPublic: newFeedback.isPublic,
       category: newFeedback.category || "General",
       state: "Pending",
     };
@@ -81,7 +88,9 @@ const Feedback = () => {
       setNewFeedback({
         name: "",
         phoneNumber: "",
+        title: "",
         feedback: "",
+        isPublic: true,
         category: "",
         state: "Pending",
       });
@@ -112,7 +121,7 @@ const Feedback = () => {
   };
 
   return (
-    <div className="flex justify-center items-center w-full bg-gray-50 p-6 shadow-lg py-12">
+    <div className="flex justify-center items-center w-full bg-gray-50 p-6 shadow-sm py-12">
       <div className="w-[400px] sm:w-[500px] md:w-[800px] p-6 rounded-lg bg-white mx-auto flex flex-col items-center border border-gray-200  ">
         <h3 className="text-2xl font-semibold text-gray-800 mb-6">
           Submit New Feedback
@@ -166,6 +175,35 @@ const Feedback = () => {
               }
             }}
             className="w-full mt-1 border-gray-300 focus:ring-primary focus:border-primary"
+          />
+        </div>
+        {/* Feedback Title */}
+        <div className="mb-4 w-full">
+          <Label htmlFor="title" className="block text-sm font-medium mb-2">
+            Title
+          </Label>
+          <Input
+            id="title"
+            value={newFeedback.title}
+            placeholder="Enter feedback title"
+            onChange={(e) =>
+              setNewFeedback({ ...newFeedback, title: e.target.value })
+            }
+            className="w-full mt-1 border-gray-300 focus:ring-primary focus:border-primary"
+          />
+        </div>
+        {/* Feedback Visibility */}
+        <div className="mb-4 w-full flex items-center justify-between">
+          <Label htmlFor="isPublic" className="text-sm font-medium">
+            Make Feedback Public
+          </Label>
+          <Switch
+            id="isPublic"
+            checked={newFeedback.isPublic}
+            onCheckedChange={(checked) =>
+              setNewFeedback({ ...newFeedback, isPublic: checked })
+            }
+            className="ml-4"
           />
         </div>
 
@@ -233,7 +271,9 @@ const Feedback = () => {
                 setNewFeedback({
                   name: "",
                   phoneNumber: "",
+                  title: "",
                   feedback: "",
+                  isPublic: true,
                   category: "",
                   state: "Pending",
                 });

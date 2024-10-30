@@ -1,7 +1,14 @@
 "use client";
 
 import { SignedIn, useAuth } from "@clerk/nextjs";
-import { Home, Settings, MessageSquare, LogOut, Bell } from "lucide-react";
+import {
+  Home,
+  Settings,
+  MessageSquare,
+  LogOut,
+  Bell,
+  List,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,9 +27,9 @@ export default function Sidebar() {
 
   return (
     <SignedIn>
-      <aside className="w-64 h-screen bg-white text-gray-800 hidden md:flex flex-col justify-between border-r border-gray-200 shadow-lg fixed left-0 bottom-0 top-20 max-h-screen overflow-y-scroll pb-20">
+      <aside className="w-64 h-screen bg-white text-gray-800 hidden md:flex flex-col justify-between border-r border-gray-800/10 shadow-lg fixed left-0 bottom-0 top-20 max-h-screen overflow-y-scroll pb-20">
         {/* Logo Section */}
-        <div className="flex items-center justify-center py-8 bg-gray-100 shadow-sm">
+        <div className="flex items-center justify-center py-8 bg-gray-50 shadow-sm">
           <Image
             src={"/logo.png"}
             alt="logo"
@@ -35,6 +42,15 @@ export default function Sidebar() {
         {/* Navigation Links */}
         <nav className="px-4 w-full flex-1 py-6">
           <ul className="space-y-3">
+            <li>
+              <Link
+                href="/feeds"
+                className="flex items-center gap-4 py-3 px-4 rounded-lg text-md font-medium text-gray-800 hover:bg-primary hover:text-white transition-all duration-200"
+              >
+                <List size={20} />
+                Community Feed
+              </Link>
+            </li>
             <li>
               <Link
                 href="/"
@@ -53,18 +69,10 @@ export default function Sidebar() {
             </li>
             <li>
               <Link
-                href="/video-chat"
-                className="flex items-center gap-4 py-3 px-4 rounded-lg text-md font-medium text-gray-700 hover:bg-primary hover:text-white transition-all duration-200"
-              >
-                <Bell size={20} /> Video chat
-              </Link>
-            </li>
-            <li>
-              <Link
                 href="/feedback"
                 className="flex items-center gap-4 py-3 px-4 rounded-lg text-md font-medium text-gray-700 hover:bg-primary hover:text-white transition-all duration-200"
               >
-                <MessageSquare size={20} /> Feedback
+                <MessageSquare size={20} /> New Feedback
               </Link>
             </li>
             <li>
@@ -79,7 +87,7 @@ export default function Sidebar() {
         </nav>
 
         {/* Logout Button */}
-        <div className="px-4 py-6 border-t border-gray-200 bg-gray-50">
+        <div className="px-4 py-6 border-t bg-white">
           <button
             onClick={handleLogout}
             className="flex items-center gap-4 py-3 px-4 w-full text-md font-medium text-gray-600 hover:bg-red-600 hover:text-white rounded-lg transition-all duration-200"

@@ -111,7 +111,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full flex items-center justify-between h-[80px] bg-white px-5 top-0 left-0 sticky z-50 border-b border-gray-200 shadow-sm">
+    <nav className="w-full flex items-center justify-between h-[80px] bg-white px-5 top-0 left-0 sticky z-50 border-b border-gray-800/10 ">
       {/* App Name */}
       <div className="flex items-center space-x-4 md:hidden">
         <MobileNavbar />

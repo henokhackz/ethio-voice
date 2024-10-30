@@ -8,16 +8,19 @@ datasource db {
 }
 
 model User {
-  id          String  @id @default(cuid()) @map("_id")
-  clerkId     String  @unique
-  email       String  @unique
+  id          String     @id @default(cuid()) @map("_id")
+  clerkId     String     @unique
+  email       String     @unique
   firstName   String?
   lastName    String?
-  username    String  @unique
+  username    String     @unique
   photo       String?
   phoneNumber String?
   address     String?
-  role        String  @default("user")
+  role        String     @default("user")
+  comments    Comment[]
+  upvotes     Upvote[]
+  downvotes   Downvote[]
 
   feedbacks Feedback[]
 
@@ -27,14 +30,19 @@ model User {
 }
 
 model Feedback {
-  id          String  @id @default(cuid()) @map("_id")
+  id          String     @id @default(cuid()) @map("_id")
   name        String?
   phoneNumber String?
+  title       String
   feedback    String
   category    String
-  state       String  @default("PENDING")
+  state       String     @default("PENDING")
   attachment  String?
-  user        User    @relation(fields: [userId], references: [id])
+  user        User       @relation(fields: [userId], references: [id])
+  isPublic    Boolean    @default(true)
+  comments    Comment[]
+  upvotes     Upvote[]
+  downvotes   Downvote[]
   userId      String
 
   createdAt  DateTime  @default(now())
@@ -58,4 +66,29 @@ model Notification {
   type       String
   isRead     Boolean  @default(false)
   createdAt  DateTime @default(now())
+}
+
+model Upvote {
+  id         String   @id @default(cuid()) @map("_id")
+  feedbackId String
+  userId     String
+  feedback   Feedback @relation(fields: [feedbackId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model Downvote {
+  id         String   @id @default(cuid()) @map("_id")
+  feedbackId String
+  userId     String
+  feedback   Feedback @relation(fields: [feedbackId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
+}
+
+model Comment {
+  id         String   @id @default(cuid()) @map("_id")
+  content    String
+  feedbackId String
+  userId     String
+  feedback   Feedback @relation(fields: [feedbackId], references: [id])
+  user       User     @relation(fields: [userId], references: [id])
 }

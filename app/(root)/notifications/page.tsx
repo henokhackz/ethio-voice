@@ -64,8 +64,8 @@ function FeedbackNotifications() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full  py-12 bg-gray-50 px-12 md:px-5 ">
-      <Card className={cn("w-[200px] md:w-[400px] h-full bg-white shadow-lg ")}>
+    <div className="flex items-center justify-center w-full  bg-gray-50 p-5 ">
+      <Card className={cn("w-[200px] md:w-[600px] h-full bg-white shadow-lg ")}>
         <CardHeader>
           <CardTitle>Notifications</CardTitle>
           <CardDescription>

@@ -18,7 +18,7 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
   }
 
   return (
-    <div className="flex w-full flex-col justify-between items-center min-h-screen">
+    <div className="flex w-full flex-col justify-between items-center min-h-screen bg-gray-50">
       <Navbar />
       <div className="flex items-start justify-between w-full">
         {user && (
