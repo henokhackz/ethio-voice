@@ -65,7 +65,7 @@ const Dashboard = async () => {
           <div className="mb-10 text-center md:text-left">
             <h1 className="text-2xl font-semibold text-gray-800">
               Welcome back,{" "}
-              <span className="text-primary">{user.firstName}</span>
+              <span className="text-primary">{user?.firstName}</span>
             </h1>
             <p className="text-md text-gray-800 mt-2">
               Good to see you again! Here&apos;s what&apos;s new:
