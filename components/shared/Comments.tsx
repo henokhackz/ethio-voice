@@ -13,8 +13,7 @@ import {
 
 interface Comment {
   id: string;
-  text: string;
-  date: string; // Adjust according to your actual date format
+  content: string;
 }
 
 const Comments = ({ feedbackId }: { feedbackId: string }) => {
@@ -24,11 +23,23 @@ const Comments = ({ feedbackId }: { feedbackId: string }) => {
 
   useEffect(() => {
     const fetchComments = async () => {
-      const { comments: fetchedComments } = await getCommentsByFeedbackId(
-        feedbackId
-      );
-      setComments(fetchedComments as Comment[]);
+      try {
+        const { comments: fetchedComments } = await getCommentsByFeedbackId(
+          feedbackId
+        );
+
+        // Populate comments, ensuring each has required fields
+        setComments(
+          (fetchedComments ?? []).map((comment) => ({
+            ...comment,
+            content: comment.content,
+          })) as Comment[]
+        );
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
     };
+
     fetchComments();
   }, [feedbackId]);
 
@@ -46,7 +57,12 @@ const Comments = ({ feedbackId }: { feedbackId: string }) => {
         const { comments: updatedComments } = await getCommentsByFeedbackId(
           feedbackId
         );
-        setComments(updatedComments as Comment[]);
+        setComments(
+          (updatedComments ?? []).map((comment) => ({
+            ...comment,
+            content: comment.content,
+          })) as Comment[]
+        );
       } else {
         console.error("Failed to add comment:", state, data);
       }
@@ -75,8 +91,7 @@ const Comments = ({ feedbackId }: { feedbackId: string }) => {
             <div className="space-y-4 mt-2">
               {comments.map((comment) => (
                 <div key={comment.id} className="border-b border-gray-200 pb-2">
-                  <p className="text-sm text-gray-600">{comment.text}</p>
-                  <span className="text-xs text-gray-400">{comment.date}</span>
+                  <p className="text-sm text-gray-600">{comment.content}</p>
                 </div>
               ))}
             </div>
