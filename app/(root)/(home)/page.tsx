@@ -22,11 +22,7 @@ const Dashboard = async () => {
     const userResult = await getUserById(userId);
     user = userResult.user;
 
-    if (!user) {
-      return <div className=""></div>;
-    }
-
-    if (user.role === "admin") {
+    if (user?.role === "admin") {
       redirect("/admin-dashboard");
     }
     feedbacks = result.feedbacks;
