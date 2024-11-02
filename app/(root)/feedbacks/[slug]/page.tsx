@@ -24,16 +24,16 @@ import { useRouter } from "next/navigation"; // Import useRouter
 
 interface Feedback {
   feedback: string;
-  id: string;
+  id?: string;
   name: string | null;
   phoneNumber: string | null;
-  category: string;
+  category?: string;
   state: string;
-  attachment: string | null;
+  attachment?: string | null;
   userId: string;
-  createdAt: Date;
-  updatedAt: Date;
-  categoryId: string | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+  categoryId?: string | null;
 }
 
 const UpdateFeedbackPage = ({ params }: { params: { slug: string } }) => {
@@ -48,6 +48,8 @@ const UpdateFeedbackPage = ({ params }: { params: { slug: string } }) => {
     feedback: "",
     category: "",
     state: "Pending",
+    title: "",
+    isPublic: true,
   });
   const [previewUrl, setPreviewUrl] = useState<string | null | unknown>(null); // State for image preview
   const [loading, setLoading] = useState(false); // Loading state
@@ -68,6 +70,8 @@ const UpdateFeedbackPage = ({ params }: { params: { slug: string } }) => {
           feedback: feedback?.feedback as string,
           category: feedback?.category as string,
           state: feedback?.state as string,
+          title: feedback?.title as string,
+          isPublic: feedback?.isPublic as boolean,
         });
       } else {
         toast({
@@ -120,7 +124,7 @@ const UpdateFeedbackPage = ({ params }: { params: { slug: string } }) => {
         className: "bg-red-300 text-white text-center mb-12",
       });
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
