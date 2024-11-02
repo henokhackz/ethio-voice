@@ -1,6 +1,5 @@
 "use client";
 import { BellRing, Check } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -64,8 +63,8 @@ function FeedbackNotifications() {
   };
 
   return (
-    <div className="flex items-center justify-center w-full  bg-gray-50 p-5 ">
-      <Card className={cn("w-[200px] md:w-[600px] h-full bg-white shadow-lg ")}>
+    <div className="flex items-start w-full bg-gray-50 p-5 h-full">
+      <Card className="w-[200px] md:w-[600px] h-full bg-white shadow-lg">
         <CardHeader>
           <CardTitle>Notifications</CardTitle>
           <CardDescription>

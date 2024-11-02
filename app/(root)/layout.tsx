@@ -21,9 +21,11 @@ const layout = async ({ children }: { children: React.ReactNode }) => {
     <div className="flex w-full flex-col justify-between items-center min-h-screen bg-gray-50">
       <Navbar />
       <div className="flex items-start justify-between w-full">
-        <div className="w-64">
-          {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />}
-        </div>
+        {userId && (
+          <div className="w-64">
+            {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />}
+          </div>
+        )}
 
         <div className="flex-grow">{children}</div>
 
