@@ -58,7 +58,7 @@ const Dashboard = async () => {
   const { feedbackCount, inProgressCount, resolvedCount, pendingCount } = count;
 
   return (
-    <div className="w-full min-h-screen flex flex-col items-center p-4  ">
+    <div className="w-full min-h-screen flex flex-col items-center p-4  justify-center ">
       <SignedIn>
         <div className="flex flex-col p-6 w-full max-w-6xl bg-gray-50 rounded-lg ">
           {/* Welcome Section */}

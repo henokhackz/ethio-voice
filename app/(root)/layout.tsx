@@ -8,29 +8,30 @@ import Sidebar from "./components/sidebar";
 
 const layout = async ({ children }: { children: React.ReactNode }) => {
   const { userId } = await auth();
-
   let user = null;
 
   if (userId) {
     const result = await getUserById(userId);
-
     user = result.user;
   }
 
   return (
-    <div className="flex w-full flex-col justify-between items-center min-h-screen bg-gray-50">
+    <div className="flex flex-col w-full min-h-screen bg-gray-50 overflow-x-hidden">
       <Navbar />
-      <div className="flex items-start justify-between w-full">
+      <div className="flex flex-1 w-full items-center justify-center">
+        {/* Sidebar */}
         {userId && (
-          <div className="w-64">
+          <div className=" w-0 md:64 flex-shrink-0">
             {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />}
           </div>
         )}
 
-        <div className="flex-grow">{children}</div>
-
-        <Toaster />
+        {/* Main Content */}
+        <div className="md:flex-1 Md:p-8 md:overflow-x-auto p-5 m-12 md:m-0">
+          {children}
+        </div>
       </div>
+      <Toaster />
     </div>
   );
 };
